@@ -6,7 +6,6 @@ from limix.qtl import LMM
 
 
 def test_qtl_lmm():
-
     random = RandomState(1)
 
     N = 100
@@ -27,5 +26,17 @@ def test_qtl_lmm():
     assert_allclose(
         pv[:, :5].ravel(),
         [0.85712431, 0.46681538, 0.58717204, 0.55894821, 0.19178414],
+        rtol=1e-5,
+        atol=1e-5)
+
+    assert_allclose(
+        beta.ravel()[:5],
+        [0.0436056, -0.16947568, -0.11999516, 0.13877098, 0.28097339],
+        rtol=1e-5,
+        atol=1e-5)
+
+    assert_allclose(
+        beta_ste.ravel()[:5],
+        [0.24220492, 0.23290171, 0.22101052, 0.23745709, 0.21525261],
         rtol=1e-5,
         atol=1e-5)
