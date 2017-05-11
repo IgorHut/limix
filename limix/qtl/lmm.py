@@ -156,6 +156,17 @@ class LMM:
         import limix_legacy.deprecated
         import limix_legacy.deprecated as dlimix_legacy
 
+        # from glimix_core.lmm import LMM
+        # from numpy_sugar.linalg import economic_qs
+        #
+        # QS = economic_qs(self.K)
+        #
+        # lmm = LMM(self.pheno.ravel(), self.covs, QS)
+        # lmm.learn(progress=True)
+        # lml_null = lmm.lml()
+        # flmm = lmm.get_fast_scanner()
+        # lml_alts, effect_sizes = flmm.fast_scan(self.snps)
+
         t0 = time.time()
         if self._lmm is None:
             self._lmm = limix_legacy.deprecated.CLMM()
@@ -239,6 +250,14 @@ class LMM:
 
         if self.verbose:
             print(("finished GWAS testing in %.2f seconds" % (t1 - t0)))
+
+        # from numpy import asarray
+        # lrs = -2 * lml_null + 2 * asarray(lml_alts)
+        # from scipy.stats import chi2
+        # chi2 = chi2(df=1)
+        # pvalues = chi2.sf(lrs)
+        # import pdb; pdb.set_trace()
+        # pass
 
     def setCovs(self, covs):
         self._lmm.setCovs(covs)
