@@ -3,7 +3,8 @@ from __future__ import division
 import scipy.spatial
 from joblib import Parallel, cpu_count, delayed
 from numpy import (asarray, ascontiguousarray, double, einsum, isfinite,
-                   logical_not, minimum, newaxis, sqrt, unique, zeros)
+                   logical_not, minimum, newaxis, sqrt, zeros)
+from numpy_sugar import unique
 from scipy.spatial import _distance_wrap
 from tqdm import tqdm
 
@@ -134,7 +135,7 @@ def indep_pairwise(X, window_size, step_size, threshold, verbose=True):
 
 
 def _check_encoding(X):
-    u = unique(X)
+    u = unique(X.ravel())
     u = u[isfinite(u)]
     if len(u) > 3:
         return False
@@ -145,7 +146,7 @@ def maf(X):
     r"""Compute minor allele frequencies.
 
     It assumes that `X` encodes 0, 1, and 2 representing the number
-    of alleles.
+    of alleles. This function also works with dask arrays.
 
     Args:
         X (array_like): Genotype matrix.
